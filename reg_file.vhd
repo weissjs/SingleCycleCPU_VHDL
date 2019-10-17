@@ -1,0 +1,61 @@
+library IEEE;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity reg_file is
+	port( Rd      : in std_logic_vector(4 downto 0);
+		  Rs      : in std_logic_vector(4 downto 0);
+		  Rt      : in std_logic_vector(4 downto 0);
+		  busW    : in std_logic_vector(31 downto 0);
+		  RegWr   : in std_logic;
+		  clk     : in std_logic;
+		  busA    : out std_logic_vector(31 downto 0);
+		  busB    : out std_logic_vector(31 downto 0));
+end reg_file;
+
+architecture behavioral of reg_file is
+  
+  type regList is array(0 to 31) of std_logic_vector(31 downto 0);
+  signal reg : regList := (x"00000001", x"00000002",
+										  x"00000003", x"00000004",
+										  x"7FFFFFFF", x"7FFFFFFF",
+										  x"000000FC", x"00000021",
+										  x"8000F032", x"800FC007",
+										  x"00000000", x"00000000",
+										  x"00000000", x"00000000",
+										  x"00000000", x"00000000",
+										  x"00000000", x"00000000",
+										  x"00000000", x"00000000",
+										  x"00000000", x"00000000",
+										  x"00000000", x"00000000",
+										  x"00000000", x"00000000",
+										  x"00000000", x"00000000",
+										  x"00000000", x"00000000",
+										  x"00000000", x"00000000");
+  
+begin
+
+  process(clk)	
+  begin
+	
+    if (rising_edge(clk)) then
+	  busA <= reg(to_integer(unsigned(Rs))); 
+	  busB <= reg(to_integer(unsigned(Rt))); 
+	elsif (falling_edge(clk)) then
+		if(RegWr = '1') then
+		  reg(to_integer(unsigned(Rd))) <= busW;
+		else 
+		  reg <= reg;
+		end if;
+	else  
+	  reg <= reg;
+	end if;
+  end process;
+	
+end behavioral;
+			
+			
+	
+	
+
+
