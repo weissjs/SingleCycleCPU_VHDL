@@ -6,32 +6,32 @@ entity reg_file is
 	port( Rd      : in std_logic_vector(4 downto 0);
 		  Rs      : in std_logic_vector(4 downto 0);
 		  Rt      : in std_logic_vector(4 downto 0);
-		  busW    : in std_logic_vector(31 downto 0);
+		  busW    : in std_logic_vector(15 downto 0);
 		  RegWr   : in std_logic;
 		  clk     : in std_logic;
-		  busA    : out std_logic_vector(31 downto 0);
-		  busB    : out std_logic_vector(31 downto 0));
+		  busA    : out std_logic_vector(15 downto 0);
+		  busB    : out std_logic_vector(15 downto 0));
 end reg_file;
 
 architecture behavioral of reg_file is
   
-  type regList is array(0 to 31) of std_logic_vector(31 downto 0);
-  signal reg : regList := (x"00000001", x"00000002",
-										  x"00000003", x"00000004",
-										  x"7FFFFFFF", x"7FFFFFFF",
-										  x"000000FC", x"00000021",
-										  x"8000F032", x"800FC007",
-										  x"00000000", x"00000000",
-										  x"00000000", x"00000000",
-										  x"00000000", x"00000000",
-										  x"00000000", x"00000000",
-										  x"00000000", x"00000000",
-										  x"00000000", x"00000000",
-										  x"00000000", x"00000000",
-										  x"00000000", x"00000000",
-										  x"00000000", x"00000000",
-										  x"00000000", x"00000000",
-										  x"00000000", x"00000000");
+  type regList is array(0 to 31) of std_logic_vector(15 downto 0);
+  signal reg : regList := (x"0001", x"0002",
+										  x"0003", x"0004",
+										  x"7FFF", x"7FFF",
+										  x"00FC", x"0021",
+										  x"8032", x"8007",
+										  x"0000", x"0000",
+										  x"0000", x"0000",
+										  x"0000", x"0000",
+										  x"0000", x"0000",
+										  x"0000", x"0000",
+										  x"0000", x"0000",
+										  x"0000", x"0000",
+										  x"0000", x"0000",
+										  x"0000", x"0000",
+										  x"0000", x"0000",
+										  x"0000", x"0000");
   
 begin
 

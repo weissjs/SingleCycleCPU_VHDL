@@ -17,7 +17,7 @@ architecture behavior of top_level_tb is
   type Zero_array is array(0 to (NUM_VALS - 1)) of std_logic;
   type Overflow_array is array(0 to (NUM_VALS - 1)) of std_logic;
   type Carryout_array is array(0 to (NUM_VALS - 1)) of std_logic;
-  type Result_array is array(0 to (NUM_VALS - 1)) of std_logic_vector(31 downto 0);
+  type Result_array is array(0 to (NUM_VALS - 1)) of std_logic_vector(15 downto 0);
 
   -- Expected input and output data.
   constant RegWr_vals : RegWr_array := ('1','1','1','1','1', 
@@ -54,7 +54,7 @@ architecture behavior of top_level_tb is
   signal Zero_sig : std_logic;
   signal Overflow_sig : std_logic;
   signal Carryout_sig : std_logic;
-  signal Result_sig : std_logic_vector(31 downto 0);
+  signal Result_sig : std_logic_vector(15 downto 0);
 
 begin
 

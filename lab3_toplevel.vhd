@@ -10,7 +10,7 @@ entity l3_top is
 		  Rt    : in std_logic_vector(4 downto 0);
 		  ALUctr : in std_logic_vector(2 downto 0);
 		  Clk   :  in std_logic;
-		  Result : out std_logic_vector(31 downto 0);
+		  Result : out std_logic_vector(15 downto 0);
 		  Zero   : out std_logic;
 		  Overflow : out std_logic;
 		  Carryout : out std_logic);
@@ -18,9 +18,9 @@ end l3_top;
 
 architecture behavioral of l3_top is
 
-	signal busA_sig : std_logic_vector(31 downto 0);
-	signal busB_sig : std_logic_vector(31 downto 0);
-	signal result_sig : std_logic_vector(31 downto 0);
+	signal busA_sig : std_logic_vector(15 downto 0);
+	signal busB_sig : std_logic_vector(15 downto 0);
+	signal result_sig : std_logic_vector(15 downto 0);
 
 begin
 
