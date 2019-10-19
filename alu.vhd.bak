@@ -95,7 +95,7 @@ begin
 			Overflow <= '0';
 			Cout <= Cout_asr;
 		  when others =>
-		    Result_sig <= "ZZZZZZZZZZZZZZZZ";
+		    Result_sig <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
 		end case;
 	end process;
 
