@@ -37,6 +37,7 @@ architecture behavioral of control_unit is
   begin
   
   process(instr_op)
+    begin
     case instr_op is 
       when x"0" => --  add Good
 		RegDst <= '1';
@@ -209,4 +210,5 @@ architecture behavioral of control_unit is
 		ALUOP  <= "XXXX";
 		RegWrite <= '0';
     end case;
+  end process;
 end behavioral;
