@@ -43,7 +43,7 @@ architecture behavioral of toplevel_tb is
 	signal Rd, Rs, Rt       : std_logic_vector(4 downto 0);
 	signal RegWr            : std_logic;
 	signal ALUctr          : std_logic_vector(2 downto 0);
-	signal Result     : std_logic_vector(31 downto 0);
+	signal Result     : std_logic_vector(15 downto 0);
 	signal Zero : std_logic;
 	signal Carryout : std_logic;
 	signal Overflow : std_logic;
@@ -73,7 +73,7 @@ begin
 	RegWr <= '1';
 	  
 	DUT : entity work.l3_top(behavioral)
-      port map( busW => busW,
+      port map( --busW => busW,
 				RegWr => RegWr,
 				Rd => Rd,
 				Rs => Rs,
