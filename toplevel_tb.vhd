@@ -8,22 +8,22 @@ end toplevel_tb;
 architecture behavioral of toplevel_tb is
 
 	type reg_input_array is array (0 to 31) of std_logic_vector(15 downto 0);
-	constant reg_in : reg_input_array := (x"3838", x"FFFFFFFF",
-										  x"3838", x"FFFFFFFF",
-										  x"3838", x"FFFFFFFF",
-										  x"3838", x"FFFFFFFF",
-										  x"3838", x"FFFFFCFF",
-										  x"3838", x"FFFFFFFF",
-										  x"3838", x"FFFFFFFF",
-										  x"3838", x"FFFFFFFF",
-										  x"3838", x"FFFFFFFF",
-										  x"3838", x"FFFFFFFF",
-										  x"3838", x"FFFFFFFF",
-										  x"3838", x"FFFFFFFF",
-										  x"3838", x"F46FFFFF",
-										  x"38383838", x"FFFFFFFF",
-										  x"38383838", x"FFFFFFFF",
-										  x"38383838", x"FFFFFFFF");
+	constant reg_in : reg_input_array := (x"3838", x"FFFF",
+										  x"3838", x"FFFF",
+										  x"3838", x"FFFF",
+										  x"3838", x"FFFF",
+										  x"3838", x"FFFF",
+										  x"3838", x"FFFF",
+										  x"3838", x"FFFF",
+										  x"3838", x"FFFF",
+										  x"3838", x"FFFF",
+										  x"3838", x"FFFF",
+										  x"3838", x"FFFF",
+										  x"3838", x"FFFF",
+										  x"3838", x"F46F",
+										  x"3838", x"FFFF",
+										  x"3838", x"FFFF",
+										  x"3838", x"FFFF");
 
 	
 	-- type rd_address_array is array (0 to 35) of std_logic_vector(4 downto 0);
