@@ -18,9 +18,24 @@ end l3_top;
 
 architecture behavioral of l3_top is
 
-	signal busA_sig : std_logic_vector(15 downto 0);
-	signal busB_sig : std_logic_vector(15 downto 0);
-	signal result_sig : std_logic_vector(15 downto 0);
+	signal read_data_1_sig : std_logic_vector(15 downto 0);
+	signal read_data_2_sig : std_logic_vector(15 downto 0);
+	signal input_alu_b     : std_logic_vector(15 downto 0);
+	signal sign_extended_sig : std_logic_vector(15 downto 0);
+	signal instruction_sig   : std_logic_vector(15 downto 0);
+	signal program_count_sig : std_logic_vector(15 downto 0);
+	signal write_data_sig : std_logic_vector(15 downto 0);
+	signal result_alu_sig : std_logic_vector(15 downto 0);
+	signal RegDst_sig     : std_logic;
+	signal Jump_sig       : std_logic;
+	signal Branch_sig     : std_logic;
+	signal MemRead_sig    : std_logic;
+	signal MemtoReg_sig   : std_logic;
+	signal ALUOp_sig      : std_logic_vector(3 downto 0);
+	signal MemWrite_sig   : std_logic;
+	signal ALUSrc_sig     : std_logic;
+	signal RegWrite_sig   : std_logic;
+	
 
 begin
 
