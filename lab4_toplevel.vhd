@@ -2,7 +2,7 @@ library IEEE;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity l3_top is
+entity l4_top is
 	port( 
 		  RegWr : in std_logic;
 		  Rd    : in std_logic_vector(4 downto 0);
@@ -10,13 +10,12 @@ entity l3_top is
 		  Rt    : in std_logic_vector(4 downto 0);
 		  ALUctr : in std_logic_vector(2 downto 0);
 		  Clk   :  in std_logic;
-		  Result : out std_logic_vector(15 downto 0);
 		  Zero   : out std_logic;
 		  Overflow : out std_logic;
 		  Carryout : out std_logic);
-end l3_top;
+end l4_top;
 
-architecture behavioral of l3_top is
+architecture behavioral of l4_top is
 
 	signal read_data_1_sig : std_logic_vector(15 downto 0);
 	signal read_data_2_sig : std_logic_vector(15 downto 0);
@@ -39,27 +38,51 @@ architecture behavioral of l3_top is
 
 begin
 
-	Result <= result_sig;
-		DUT : entity work.reg_file(behavioral)
-      port map( Rd => Rd,
-				Rs => Rs,
-				Rt => Rt,
-				busW => result_sig,
-				RegWr => RegWr,
+
+		DUT : entity work.instruction_mem(behavioral)
+      port map( Rd => instruction_sig(3 downto 0),
+				Rs => instruction_sig(11 downto 8),
+				Rt => instruction_sig(7 downto 4),
+				busW => write_data_sig,
+				RegWr => RegWrite_sig,
 				clk => Clk,
-				busA => busA_sig,
-				busB => busB_sig);
+				busA => read_data_1_sig,
+				busB => read_data_2_sig);
+
+
+
+
+
+
+		DUT : entity work.reg_file(behavioral)
+      port map( Rd => instruction_sig(3 downto 0),
+				Rs => instruction_sig(11 downto 8),
+				Rt => instruction_sig(7 downto 4),
+				busW => write_data_sig,
+				RegWr => RegWrite_sig,
+				clk => Clk,
+				busA => read_data_1_sig,
+				busB => read_data_2_sig);
 				
 		DUT0 : entity work.alu(behavioral)
-      port map( busA => busA_sig,
-				busB => busB_sig,
-				mode => ALUctr,
+      port map( busA => read_data_2_sig,
+				busB => input_alu_b,
+				mode => ALUctr,     --learn whats happening here. leave for now
 				Overflow => Overflow,
 				Cout => Carryout,
 				Result => result_sig,
 				Zero => Zero);
 	
 	
+		DUT : entity work.data_memory(behavioral)
+      port map( Rd => instruction_sig(3 downto 0),
+				Rs => instruction_sig(11 downto 8),
+				Rt => instruction_sig(7 downto 4),
+				busW => write_data_sig,
+				RegWr => RegWrite_sig,
+				clk => Clk,
+				busA => read_data_1_sig,
+				busB => read_data_2_sig);
 	
 
 	
