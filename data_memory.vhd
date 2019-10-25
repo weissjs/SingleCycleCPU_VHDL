@@ -9,7 +9,8 @@ entity data_memory is
 			MemWrite : in std_logic;
 			MemRead  : in std_logic;
 		    clk          :  in std_logic);
-end data_memory;
+end data_memory
+;
 
 architecture behavioral of data_memory is
 
