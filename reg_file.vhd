@@ -16,7 +16,7 @@ end reg_file;
 architecture behavioral of reg_file is
   
   type regList is array(0 to 15) of std_logic_vector(15 downto 0);
-  signal reg : regList := (x"0001", x"0002",
+  signal reg : regList := (x"0000", x"0002",
 										       x"0003", x"0004",
 										       x"7FFF", x"7FFF",
 										       x"00FC", x"0021",

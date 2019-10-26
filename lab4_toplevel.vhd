@@ -9,7 +9,6 @@ entity l4_top is
 		  Rs    : in std_logic_vector(4 downto 0);
 		  Rt    : in std_logic_vector(4 downto 0);
 		  ALUctr : in std_logic_vector(2 downto 0);
-		  Clk   :  in std_logic;
 		  Zero   : out std_logic;
 		  Overflow : out std_logic;
 		  Carryout : out std_logic);
@@ -38,10 +37,16 @@ architecture behavioral of l4_top is
 	signal ALUSrc_sig     : std_logic;
 	signal RegWrite_sig   : std_logic;
 	signal PC_sig         : std_logic_vector(6 downto 0);
+	signal Clk            : std_logic := '1';
+	signal Tperiod        : time := 2 ns;
 	
 
 begin
 
+	process(Clk)
+      begin
+        Clk <= not Clk after Tperiod/2;
+    end process;
 
 		InstrucitonMemory : entity work.instruction_mem(behavioral)
       port map( Read_address => PC_sig,
@@ -79,10 +84,10 @@ begin
 		alu : entity work.alu(behavioral)
       port map( busA => read_data_1_sig,
 				busB => input_alu_b,
-				mode => ALUctr,     --learn whats happening here. leave for now
+				mode => ALUop_sig(2 downto 0),     --learn whats happening here. leave for now
 				Overflow => Overflow,
 				Cout => Carryout,
-				Result => result_sig,
+				Result => result_alu_sig,
 				Zero => Zero);
 	
 	
@@ -95,8 +100,8 @@ begin
 				clk => Clk);
 				
 		mux3 : entity work.mux_16(behavioral)
-	  port map( in_1 => read_data_mem_sig,
-				in_2 => result_sig,
+	  port map( in_1 => result_alu_sig,
+				in_2 => read_data_mem_sig,
 				sel => MemtoReg_sig,
 				out_mux => write_data_sig);
 				
