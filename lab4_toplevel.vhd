@@ -25,7 +25,8 @@ architecture behavioral of l4_top is
 	signal program_count_sig : std_logic_vector(15 downto 0);
 	signal write_data_sig : std_logic_vector(15 downto 0);
 	signal write_addr_sig : std_logic_vector(3 downto 0);
-	signal read_data_mem_sig : std_logic;
+	signal result_sig     : std_logic_vector(15 downto 0);
+	signal read_data_mem_sig : std_logic_vector(15 downto 0);
 	signal result_alu_sig : std_logic_vector(15 downto 0);
 	signal RegDst_sig     : std_logic;
 	signal Jump_sig       : std_logic;
@@ -36,16 +37,16 @@ architecture behavioral of l4_top is
 	signal MemWrite_sig   : std_logic;
 	signal ALUSrc_sig     : std_logic;
 	signal RegWrite_sig   : std_logic;
-	signal PC_sig         : std_logic(6 downto 0);
+	signal PC_sig         : std_logic_vector(6 downto 0);
 	
 
 begin
 
 
-		Instruciton memory : entity work.instruction_mem(behavioral)
+		InstrucitonMemory : entity work.instruction_mem(behavioral)
       port map( Read_address => PC_sig,
 				Instruction => instruction_sig,
-				clk => Clk;
+				clk => Clk);
 	
 		mux1 : entity work.mux_4(behavioral)
 	  port map( in_1 => instruction_sig(7 downto 4),
@@ -54,7 +55,7 @@ begin
 				out_mux => write_addr_sig);
 				
 				
-		sign extend : entity work.sign_extend(behavioral)
+		signextend : entity work.sign_extend(behavioral)
 	  port map( len_4 => instruction_sig(3 downto 0),
 				len_16 => sign_extended_sig(15 downto 0));
 
@@ -85,7 +86,7 @@ begin
 				Zero => Zero);
 	
 	
-		data memory : entity work.data_memory(behavioral)
+		datamemory : entity work.data_memory(behavioral)
       port map( address => result_sig(7 downto 0),
 				Write_data => read_data_2_sig,
 				Read_data => read_data_mem_sig,
@@ -100,7 +101,7 @@ begin
 				out_mux => write_data_sig);
 				
 		control : entity work.control_unit(behavioral)
-	  port map( instr_op => instruction(15 downto 12), 
+	  port map( instr_op => instruction_sig(15 downto 12), 
 				RegDst => RegDst_sig,
 				Jump => Jump_sig,
 				Branch => Branch_sig,

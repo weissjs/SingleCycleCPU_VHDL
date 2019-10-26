@@ -3,9 +3,9 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity reg_file is
-	port( Rd      :  in std_logic_vector(4 downto 0);
-		    Rs      :  in std_logic_vector(4 downto 0);
-		    Rt      :  in std_logic_vector(4 downto 0);
+	port( Rd      :  in std_logic_vector(3 downto 0);
+		    Rs      :  in std_logic_vector(3 downto 0);
+		    Rt      :  in std_logic_vector(3 downto 0);
 		    busW    :  in std_logic_vector(15 downto 0);
 		    RegWr   :  in std_logic;
 		    clk     :  in std_logic;

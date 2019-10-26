@@ -40,7 +40,7 @@ architecture behavioral of reg_tb is
 											 -- x"1E", x"1F");
 											 
 	signal busW, busA, busB : std_logic_vector(15 downto 0);
-	signal Rd, Rs, Rt       : std_logic_vector(4 downto 0);
+	signal Rd, Rs, Rt       : std_logic_vector(3 downto 0);
 	signal RegWr            : std_logic;
 	signal clk : std_logic := '1';
 	constant Tperiod : time := 2 ns;
@@ -61,8 +61,8 @@ begin
 		wait;
 	end process;
 	
-	Rs <= "01010";
-	Rt <= "10110";
+	Rs <= "0110";
+	Rt <= "1010";
 	RegWr <= '1';
 	  
 	DUT : entity work.reg_file(behavioral)
