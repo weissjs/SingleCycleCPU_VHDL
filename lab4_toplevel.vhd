@@ -9,7 +9,7 @@ entity l4_top is
 		  Rs    : in std_logic_vector(4 downto 0);
 		  Rt    : in std_logic_vector(4 downto 0);
 		  ALUctr : in std_logic_vector(2 downto 0);
-		  Zero   : out std_logic;
+		  --Zero   : out std_logic;
 		  Overflow : out std_logic;
 		  Carryout : out std_logic);
 end l4_top;
@@ -21,7 +21,7 @@ architecture behavioral of l4_top is
 	signal input_alu_b     : std_logic_vector(15 downto 0);
 	signal sign_extended_sig : std_logic_vector(15 downto 0);
 	signal instruction_sig   : std_logic_vector(15 downto 0);
-	signal pc_in_sig : std_logic_vector(15 downto 0);
+	signal pc_in_sig : std_logic_vector(6 downto 0);
 	signal write_data_sig : std_logic_vector(15 downto 0);
 	signal write_addr_sig : std_logic_vector(3 downto 0);
 	signal result_sig     : std_logic_vector(15 downto 0);
@@ -40,6 +40,15 @@ architecture behavioral of l4_top is
 	signal Clk            : std_logic := '1';
 	signal Tperiod        : time := 2 ns;
 	
+	signal zero_sig       : std_logic;
+	signal branch_mux_sel : std_logic;
+	
+	signal pc_incremented_sig : std_logic_vector(6 downto 0);
+	signal in_2_branch_add   : std_logic_vector(6 downto 0);
+	signal pc_branched       : std_logic_vector(6 downto 0);
+	
+	signal pc_mux1_out  : std_logic_vector(6 downto 0);
+	
 
 begin
 
@@ -48,11 +57,37 @@ begin
         Clk <= not Clk after Tperiod/2;
     end process;
 
+	branch_mux_sel <= Branch_sig AND zero_sig;
+	
 		pc : entity work.pc(behavioral)
 	  port map (pc_in => pc_in_sig,
 				pc_out => PC_sig,
 				clk => Clk);
+		
+		pc_add : entity work.pc_add(behavioral)
+	  port map (pc_in  => PC_sig,
+				pc_out => pc_incremented_sig);
 				
+		sign_extend_branch : entity work.sign_extend_branch(behavioral)
+	  port map (len_4 => instruction_sig(3 downto 0),
+				len_7 => in_2_branch_add);
+				
+		branch_add : entity work.branch_add(behavioral)
+	  port map (sign_extend => in_2_branch_add,
+				pc_in => pc_incremented_sig,
+				pc_out => pc_branched);
+		
+		branch_mux : entity work.mux_7(behavioral)
+	  port map (in_1 => pc_incremented_sig,
+				in_2 => pc_branched,
+				sel => branch_mux_sel,
+				out_mux => pc_mux1_out);
+		
+		jump_mux : entity work.mux_7(behavioral)
+	  port map (in_1 => pc_mux1_out,
+				in_2 => instruction_sig(6 downto 0),
+				sel => Jump_sig,
+				out_mux => pc_in_sig);
 	
 		InstrucitonMemory : entity work.instruction_mem(behavioral)
       port map( Read_address => PC_sig,
@@ -94,7 +129,7 @@ begin
 				Overflow => Overflow,
 				Cout => Carryout,
 				Result => result_alu_sig,
-				Zero => Zero);
+				Zero => zero_sig);
 	
 	
 		datamemory : entity work.data_memory(behavioral)
