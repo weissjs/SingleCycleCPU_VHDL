@@ -21,7 +21,7 @@ architecture behavioral of l4_top is
 	signal input_alu_b     : std_logic_vector(15 downto 0);
 	signal sign_extended_sig : std_logic_vector(15 downto 0);
 	signal instruction_sig   : std_logic_vector(15 downto 0);
-	signal program_count_sig : std_logic_vector(15 downto 0);
+	signal pc_in_sig : std_logic_vector(15 downto 0);
 	signal write_data_sig : std_logic_vector(15 downto 0);
 	signal write_addr_sig : std_logic_vector(3 downto 0);
 	signal result_sig     : std_logic_vector(15 downto 0);
@@ -48,6 +48,12 @@ begin
         Clk <= not Clk after Tperiod/2;
     end process;
 
+		pc : entity work.pc(behavioral)
+	  port map (pc_in => pc_in_sig,
+				pc_out => PC_sig,
+				clk => Clk);
+				
+	
 		InstrucitonMemory : entity work.instruction_mem(behavioral)
       port map( Read_address => PC_sig,
 				Instruction => instruction_sig,
@@ -116,6 +122,7 @@ begin
 				MemWrite => MemWrite_sig,
 				ALUOP => ALUOp_sig,
 				RegWrite => RegWrite_sig);
+				
 				
 		
 	
