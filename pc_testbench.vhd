@@ -11,8 +11,8 @@ architecture behavioral of pc_tb is
 	type address_array is array(0 to 4) of std_logic_vector(6 downto 0);
 	signal address : address_array := ("0001000", "1000000", "1000101", "0000000", "1111111");
 
-	signal pc_out_sig : std_logic_vector(7 downto 0);
-	signal pc_in_sig : std_logic_vector(7 downto 0);
+	signal pc_out_sig : std_logic_vector(6 downto 0);
+	signal pc_in_sig : std_logic_vector(6 downto 0);
 	signal clk : std_logic := '1';
 	constant Tperiod : time := 2 ns;
 
