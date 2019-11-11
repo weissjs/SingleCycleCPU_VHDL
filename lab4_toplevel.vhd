@@ -122,7 +122,7 @@ begin
 		alu : entity work.alu(behavioral)
       port map( busA => read_data_1_sig,
 				busB => input_alu_b,
-				mode => ALUop_sig(2 downto 0),     --learn whats happening here. leave for now
+				mode => ALUop_sig,     --learn whats happening here. leave for now
 				Overflow => Overflow,
 				Cout => Carryout,
 				Result => result_alu_sig,

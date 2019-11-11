@@ -47,7 +47,7 @@ architecture behavioral of control_unit is
 		MemtoReg <= '0';
 		ALUSrc  <= '0';
 		MemWrite <= '0';
-		ALUOP  <= instr_op;
+		ALUOP  <= "0000";
 		RegWrite <= '1';
       when x"1" => --  addi
 		RegDst <= '1';
@@ -57,7 +57,7 @@ architecture behavioral of control_unit is
 		MemtoReg <= '0';
 		ALUSrc  <= '0';
 		MemWrite <= '0';
-		ALUOP  <= instr_op;
+		ALUOP  <= "0000";
 		RegWrite <= '1';
       when x"2" => --  sub
 		RegDst <= '1';
@@ -67,7 +67,7 @@ architecture behavioral of control_unit is
 		MemtoReg <= '0';
 		ALUSrc  <= '0';
 		MemWrite <= '0';
-		ALUOP  <= instr_op;
+		ALUOP  <= "0001";
 		RegWrite <= '1';
       when x"3" => --  subi
 	  	RegDst <= '1';
@@ -77,7 +77,7 @@ architecture behavioral of control_unit is
 		MemtoReg <= '0';
 		ALUSrc  <= '0';
 		MemWrite <= '0';
-		ALUOP  <= instr_op;
+		ALUOP  <= "0001";
 		RegWrite <= '1';
       when x"4" => --  and 
 		RegDst <= '1';
@@ -87,7 +87,7 @@ architecture behavioral of control_unit is
 		MemtoReg <= '0';
 		ALUSrc  <= '0';
 		MemWrite <= '0';
-		ALUOP  <= instr_op;
+		ALUOP  <= "0010";
 		RegWrite <= '1';
       when x"5" => --  or
 		RegDst <= '1';
@@ -97,7 +97,7 @@ architecture behavioral of control_unit is
 		MemtoReg <= '0';
 		ALUSrc  <= '0';
 		MemWrite <= '0';
-		ALUOP  <= instr_op;
+		ALUOP  <= "0011";
 		RegWrite <= '1';
       when x"6" => --  sll
 		RegDst <= '0';
@@ -107,7 +107,7 @@ architecture behavioral of control_unit is
 		MemtoReg <= '0';
 		ALUSrc  <= '0';
 		MemWrite <= '0';
-		ALUOP  <= instr_op;
+		ALUOP  <= "0100";
 		RegWrite <= '1';
       when x"7" => --  srl
 		RegDst <= '0';
@@ -117,7 +117,7 @@ architecture behavioral of control_unit is
 		MemtoReg <= '0';
 		ALUSrc  <= '0';
 		MemWrite <= '0';
-		ALUOP  <= instr_op;
+		ALUOP  <= "0101";
 		RegWrite <= '1';
       when x"8" => --  beq
 		RegDst <= 'X';
@@ -127,9 +127,9 @@ architecture behavioral of control_unit is
 		MemtoReg <= 'X';
 		ALUSrc  <= '0';
 		MemWrite <= '0';
-		ALUOP  <= instr_op;
+		ALUOP  <= "1000";
 		RegWrite <= '0';
-      when x"9" => --  blt
+      when x"9" => --  bgt
 		RegDst <= 'X';
 		Jump   <= '0';
 		Branch <= '1';
@@ -137,7 +137,7 @@ architecture behavioral of control_unit is
 		MemtoReg <= 'X';
 		ALUSrc  <= '0';
 		MemWrite <= '0';
-		ALUOP  <= instr_op;
+		ALUOP  <= "1010";
 		RegWrite <= '0';
       when x"A" => --  blt
 		RegDst <= 'X';
@@ -147,7 +147,7 @@ architecture behavioral of control_unit is
 		MemtoReg <= 'X';
 		ALUSrc  <= '0';
 		MemWrite <= '0';
-		ALUOP  <= instr_op;
+		ALUOP  <= "1011";
 		RegWrite <= '0';
       when x"b" => --  bne
 		RegDst <= 'X';
@@ -157,7 +157,7 @@ architecture behavioral of control_unit is
 		MemtoReg <= 'X';
 		ALUSrc  <= '0';
 		MemWrite <= '0';
-		ALUOP  <= instr_op;
+		ALUOP  <= "1001";
 		RegWrite <= '0';
       when x"C" => --  j  UNSURE
 		RegDst <= 'X';
@@ -167,7 +167,7 @@ architecture behavioral of control_unit is
 		MemtoReg <= '0';
 		ALUSrc  <= '0';
 		MemWrite <= '0';
-		ALUOP  <= instr_op;
+		ALUOP  <= "0000";
 		RegWrite <= '0';
       when x"d" => --  lw
 		RegDst <= '0';
@@ -177,7 +177,7 @@ architecture behavioral of control_unit is
 		MemtoReg <= '1';
 		ALUSrc  <= '1';
 		MemWrite <= '0';
-		ALUOP  <= instr_op;
+		ALUOP  <= "0000";
 		RegWrite <= '1';
       when x"e" => --  sw 
 		RegDst <= 'X';
@@ -187,7 +187,7 @@ architecture behavioral of control_unit is
 		MemtoReg <= 'X';
 		ALUSrc  <= '0';
 		MemWrite <= '1';
-		ALUOP  <= instr_op;
+		ALUOP  <= "0000";
 		RegWrite <= '0';
       when x"f" => --  li  
 	  	RegDst <= '0';

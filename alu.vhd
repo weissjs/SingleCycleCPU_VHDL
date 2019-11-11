@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity alu is
 	port( busA   : in std_logic_vector(15 downto 0);
 		  busB   : in std_logic_vector(15 downto 0);
-		  mode   : in std_logic_vector(2 downto 0);
+		  mode   : in std_logic_vector(3 downto 0);
 		  Overflow : out std_logic;
 		  Cout   : out std_logic;
 		  Result : out std_logic_vector(15 downto 0);
@@ -25,6 +25,12 @@ architecture behavioral of alu is
 	signal busA_sig   : std_logic_vector(16 downto 0);
 	signal busA_sig_lsr : std_logic_vector(16 downto 0);
 	signal busA_sig_asr : std_logic_vector(16 downto 0);
+	
+	signal Zero_non_branch_sig : std_logic;
+	signal Zero_beq : std_logic;
+	signal Zero_bne : std_logic;
+	signal Zero_blt : std_logic;
+	signal Zero_bgt : std_logic;
 	
 	
 	signal Result_add : std_logic_vector(15 downto 0);
@@ -62,56 +68,116 @@ begin
 	process(mode, Result_add, Result_lsl, Result_sub, Result_lsr) 
 	begin
 		case mode is
-		  when "000" =>
+		  when "0000" =>				--add   
 			Result_sig <= Result_add;
 			Overflow <= Overflow_add;
 			Cout <= Cout_add;
-		  when "001" =>
+			Zero <= Zero_non_branch_sig;
+		  when "0001" =>				--sub
 			Result_sig <= Result_sub;
 			Overflow <= Overflow_sub;
 			Cout <= Cout_sub;
-		  when "010" =>
+			Zero <= Zero_non_branch_sig;
+
+		  when "0010" =>				--and
 			Result_sig <= busA AND busB;
 			Overflow <= '0';
 			Cout <= '0';
-		  when "011" =>
+			Zero <= Zero_non_branch_sig;
+		  when "0011" =>				--or
 			Result_sig <= busA OR busB;
 			Overflow <= '0';
 			Cout <= '0';
-		  when "100" =>
-		    Result_sig <= Result_lsl;
+			Zero <= Zero_non_branch_sig;
+		  when "0100" =>				--lsl
+		    Result_sig <= Result_lsl; 
 			Overflow <= '0';
 			Cout <= Cout_lsl;
-		  when "101" =>
+			Zero <= Zero_non_branch_sig;
+		  when "0101" =>				--lsr
 			Result_sig <= Result_lsr;
 			Overflow <= '0';
 			Cout <= Cout_lsr;
-		  when "110" =>
+			Zero <= Zero_non_branch_sig;
+		  when "0110" =>				--lsl
 			Result_sig <= Result_lsl;
 			Overflow <= Overflow_lsa;
 			Cout <= Cout_lsl;
-		  when "111" =>
+			Zero <= Zero_non_branch_sig;
+		  when "0111" =>				--asr
 		    Result_sig <= Result_asr;
 			Overflow <= '0';
 			Cout <= Cout_asr;
+			Zero <= Zero_non_branch_sig;
+		  when "1000" =>				--beq
+			Result_sig <= "ZZZZZZZZZZZZZZZZ";
+			Cout <= Cout_add;
+			Overflow <= '0';
+			Zero <= Zero_beq;
+		  when "1001" =>				--bne
+			Result_sig <= "ZZZZZZZZZZZZZZZZ";
+			Cout <= Cout_add;
+			Overflow <= '0';
+			Zero <= Zero_bne;
+		  when "1010" =>				--bgt
+			Result_sig <= "ZZZZZZZZZZZZZZZZ";
+			Cout <= Cout_add;
+			Overflow <= '0';
+			Zero <= Zero_bgt;
+		  when "1011" =>				--blt
+			Result_sig <= "ZZZZZZZZZZZZZZZZ";
+			Cout <= Cout_add;
+			Overflow <= '0';
+			Zero <= Zero_blt;
 		  when others =>
 		    Result_sig <= "ZZZZZZZZZZZZZZZZ";
 		end case;
 	end process;
-
+	
+	
+	process(mode, busA, busB)
+	begin
+		
+		if(busA = busB) then
+		  Zero_beq <= '1';
+		  Zero_bne <= '0';
+		else 
+		  Zero_beq <= '0';
+		  Zero_bne <= '1';
+		end if;
+		
+		if(busA < busB) then
+		  Zero_blt <= '1';
+		  Zero_bgt <= '0';
+		elsif(busA > busB) then
+		  Zero_blt <= '0';
+		  Zero_bgt <= '1';
+		else 
+		  Zero_blt <= '0';
+		  Zero_bgt <= '0';
+		end if;
+		
+	end process;
+	
 	Result <= Result_sig;
 	Result_inv <= NOT Result_sig; 
 	
-	process(Result_inv)
+	process(Result_sig)
 	begin
-		Zero <= Result_inv(0) AND Result_inv(1) AND
-				Result_inv(2) AND Result_inv(3) AND
-				Result_inv(4) AND Result_inv(5) AND
-				Result_inv(6) AND Result_inv(7) AND
-				Result_inv(8) AND Result_inv(9) AND
-				Result_inv(10) AND Result_inv(11) AND
-				Result_inv(12) AND Result_inv(13) AND
-				Result_inv(14) AND Result_inv(15);
+	
+		if(Result_sig = x"0000") then
+			Zero_non_branch_sig <= '1';
+		else 
+			Zero_non_branch_sig <= '0';
+		end if;
+		-- Zero <= Result_inv(0) AND Result_inv(1) AND
+				-- Result_inv(2) AND Result_inv(3) AND
+				-- Result_inv(4) AND Result_inv(5) AND
+				-- Result_inv(6) AND Result_inv(7) AND
+				-- Result_inv(8) AND Result_inv(9) AND
+				-- Result_inv(10) AND Result_inv(11) AND
+				-- Result_inv(12) AND Result_inv(13) AND
+				-- Result_inv(14) AND Result_inv(15);
 	end process;
 	
     add_16 : for i in 0 to 15 generate 
