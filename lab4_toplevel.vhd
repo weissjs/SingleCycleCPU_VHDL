@@ -3,15 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity l4_top is
-	port( 
-		  RegWr : in std_logic;
-		  Rd    : in std_logic_vector(4 downto 0);
-		  Rs    : in std_logic_vector(4 downto 0);
-		  Rt    : in std_logic_vector(4 downto 0);
-		  ALUctr : in std_logic_vector(2 downto 0);
-		  --Zero   : out std_logic;
-		  Overflow : out std_logic;
-		  Carryout : out std_logic);
+	port(  PC_reset : in std_logic);
 end l4_top;
 
 architecture behavioral of l4_top is
@@ -48,6 +40,10 @@ architecture behavioral of l4_top is
 	signal pc_branched       : std_logic_vector(6 downto 0);
 	
 	signal pc_mux1_out  : std_logic_vector(6 downto 0);
+
+	signal Overflow : std_logic;
+	signal Carryout : std_logic;
+	
 	
 
 begin
@@ -62,7 +58,8 @@ begin
 		pc : entity work.pc(behavioral)
 	  port map (pc_in => pc_in_sig,
 				pc_out => PC_sig,
-				clk => Clk);
+				clk => Clk,
+				reset => PC_reset);
 		
 		pc_add : entity work.pc_add(behavioral)
 	  port map (pc_in  => PC_sig,
