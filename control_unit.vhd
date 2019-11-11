@@ -161,7 +161,7 @@ architecture behavioral of control_unit is
 		RegWrite <= '0';
       when x"C" => --  j  UNSURE
 		RegDst <= 'X';
-		Jump   <= '0';
+		Jump   <= '1';
 		Branch <= '0';
 		MemRead <= '0';
 		MemtoReg <= '0';
