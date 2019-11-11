@@ -68,7 +68,7 @@ begin
 	  port map (pc_in  => PC_sig,
 				pc_out => pc_incremented_sig);
 				
-		sign_extend_branch : entity work.sign_extend(behavioral)
+		sign_extend_branch : entity work.sign_extend_branch(behavioral)
 	  port map (len_4 => instruction_sig(3 downto 0),
 				len_7 => in_2_branch_add);
 				
@@ -94,16 +94,16 @@ begin
 				Instruction => instruction_sig,
 				clk => Clk);
 	
-	--	mux1 : entity work.mux_4(behavioral);
---	  port map( in_1 => instruction_sig(7 downto 4),
-	--			in_2 => instruction_sig(3 downto 0),
-	--			sel => RegDst_sig,
-		--		out_mux => write_addr_sig);
+		mux1 : entity work.mux_4(behavioral)
+	  port map( in_1 => instruction_sig(7 downto 4),
+				in_2 => instruction_sig(3 downto 0),
+				sel => RegDst_sig,
+				out_mux => write_addr_sig);
 				
 				
-	--	signextend : entity work.sign_extend(behavioral)
-	--  port map( len_4 => instruction_sig(3 downto 0),
-	--			len_16 => sign_extended_sig(15 downto 0));
+		signextend : entity work.sign_extend(behavioral)
+	 port map( len_4 => instruction_sig(3 downto 0),
+				len_16 => sign_extended_sig);
 
 		reg : entity work.reg_file(behavioral)
       port map( Rd => write_addr_sig,
