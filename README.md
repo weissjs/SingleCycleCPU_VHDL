@@ -15,6 +15,10 @@ I-Type
 J-type
 [0000][000000000000]
   op     constant
+  
+add rd, rs, rt
+li rt, im    -- dont care ab rs
+sw rt, [rs] -- dont care ab immediate
 ```
 ## List of instructions
 ```
