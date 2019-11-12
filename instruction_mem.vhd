@@ -32,7 +32,7 @@ architecture behavioral of instruction_mem is
                       x"F004", -- Load Imiddate [1111][0000][0001][0001]
                       x"F014",
 										  x"F02D", x"F030",
-										  x"0222", x"C07F",
+										  x"2323", x"C07F",
 										  x"C07F", x"0021",
 										  x"8032", x"8007",
 										  x"0000", x"0000",

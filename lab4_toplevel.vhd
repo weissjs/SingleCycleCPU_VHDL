@@ -130,7 +130,7 @@ begin
 	
 	
 		datamemory : entity work.data_memory(behavioral)
-      port map( address => result_sig(7 downto 0),
+      port map( address => result_alu_sig(7 downto 0),
 				Write_data => read_data_2_sig,
 				Read_data => read_data_mem_sig,
 				MemWrite => MemWrite_sig,

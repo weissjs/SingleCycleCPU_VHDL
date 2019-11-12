@@ -12,14 +12,8 @@ architecture behavioral of pc_add is
 begin
 	
 
-  process(pc_in)
-  begin
-    if(pc_in = "1111111") then
-      pc_out <= "1111111";
-    else 
-      pc_out <= std_logic_vector(unsigned(pc_in) + unsigned(oneone));
-    end if;
-  end process;
+      pc_out <= std_logic_vector(unsigned(pc_in) + 1);
+
 		
 	
 end behavioral;

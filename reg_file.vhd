@@ -26,14 +26,13 @@ architecture behavioral of reg_file is
 										       x"0000", x"0000");
   
 begin
-
+          busA <= reg(to_integer(unsigned(Rs))); 
+	  busB <= reg(to_integer(unsigned(Rt))); 
   process(clk)	
   begin
 	
-    if (rising_edge(clk)) then
-	  busA <= reg(to_integer(unsigned(Rs))); 
-	  busB <= reg(to_integer(unsigned(Rt))); 
-	elsif (falling_edge(clk)) then
+
+	if (falling_edge(clk)) then
 		if(RegWr = '1') then
 		  reg(to_integer(unsigned(Rd))) <= busW;
 		--else 
