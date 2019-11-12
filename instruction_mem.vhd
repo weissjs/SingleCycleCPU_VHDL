@@ -29,13 +29,13 @@ architecture behavioral of instruction_mem is
   
   type registers is array(0 to 127) of std_logic_vector(15 downto 0);
   signal instruction_list : registers := (
-                      x"F004", -- Load Imiddate [1111][0000][0001][0001]
-                      x"F014",
-										  x"F02D", x"F030",
-										  x"2323", x"E730",
-										  x"801E", x"C07F",
-										  x"C07F", x"8007",
-										  x"0000", x"0000",
+                      x"F015", -- Load Imiddate [1111][0000][0001][0001]
+                      x"1121",
+										  x"f031", x"6221",
+										  x"1331", x"8312",
+										  x"c003", x"6331",
+										  x"E031", x"c07f",
+										  x"c07f", x"0000",
 										  x"0000", x"0000",
 										  x"0000", x"0000",
 										  x"0000", x"0000",

@@ -50,12 +50,12 @@ architecture behavioral of control_unit is
 		ALUOP  <= "0000";
 		RegWrite <= '1';
       when x"1" => --  addi
-		RegDst <= '1';
+		RegDst <= '0';
 		Jump   <= '0';
 		Branch <= '0';
 		MemRead <= '0';
 		MemtoReg <= '0';
-		ALUSrc  <= '0';
+		ALUSrc  <= '1';
 		MemWrite <= '0';
 		ALUOP  <= "0000";
 		RegWrite <= '1';
@@ -105,7 +105,7 @@ architecture behavioral of control_unit is
 		Branch <= '0';
 		MemRead <= '0';
 		MemtoReg <= '0';
-		ALUSrc  <= '0';
+		ALUSrc  <= '1';
 		MemWrite <= '0';
 		ALUOP  <= "0100";
 		RegWrite <= '1';
