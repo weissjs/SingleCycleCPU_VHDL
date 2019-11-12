@@ -115,7 +115,7 @@ begin
 			Overflow <= '0';
 			Zero <= Zero_beq;
 		  when "1001" =>				--bne
-			Result_sig <= "ZZZZZZZZZZZZZZZZ";
+			Result_sig <= busA;
 			Cout <= Cout_add;
 			Overflow <= '0';
 			Zero <= Zero_bne;
@@ -135,29 +135,29 @@ begin
 	end process;
 	
 	
---	process(mode, busA, busB)
---	begin
---		
---		if(busA = busB) then
---		  Zero_beq <= '1';
---		  Zero_bne <= '0';
---		else 
---		  Zero_beq <= '0';
---		  Zero_bne <= '1';
---		end if;
---		
---		if(busA < busB) then
---		  Zero_blt <= '1';
---		  Zero_bgt <= '0';
---		elsif(busA > busB) then
---		  Zero_blt <= '0';
---		  Zero_bgt <= '1';
---		else 
---		  Zero_blt <= '0';
---		  Zero_bgt <= '0';
---		end if;
---		
---	end process;
+	process(mode, busA, busB)
+	begin
+		
+		if(busA = busB) then
+		  Zero_beq <= '1';
+		  Zero_bne <= '0';
+		else 
+		  Zero_beq <= '0';
+		  Zero_bne <= '1';
+		end if;
+		
+		if(busA < busB) then
+		  Zero_blt <= '1';
+		  Zero_bgt <= '0';
+		elsif(busA > busB) then
+		  Zero_blt <= '0';
+		  Zero_bgt <= '1';
+		else 
+		  Zero_blt <= '0';
+		  Zero_bgt <= '0';
+		end if;
+		
+	end process;
 	
 	Result <= Result_sig;
 	Result_inv <= NOT Result_sig; 

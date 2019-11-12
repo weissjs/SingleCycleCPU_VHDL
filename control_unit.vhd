@@ -187,7 +187,7 @@ architecture behavioral of control_unit is
 		MemtoReg <= 'X';
 		ALUSrc  <= '0';
 		MemWrite <= '1';
-		ALUOP  <= "0000";
+		ALUOP  <= "1001";
 		RegWrite <= '0';
       when x"f" => --  li  
 	  	RegDst <= '0';

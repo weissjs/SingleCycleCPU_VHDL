@@ -32,9 +32,9 @@ architecture behavioral of instruction_mem is
                       x"F004", -- Load Imiddate [1111][0000][0001][0001]
                       x"F014",
 										  x"F02D", x"F030",
-										  x"2323", x"C07F",
-										  x"C07F", x"0021",
-										  x"8032", x"8007",
+										  x"2323", x"E730",
+										  x"801E", x"C07F",
+										  x"C07F", x"8007",
 										  x"0000", x"0000",
 										  x"0000", x"0000",
 										  x"0000", x"0000",
@@ -96,13 +96,13 @@ architecture behavioral of instruction_mem is
   
 begin
 
-  process(clk)	
-  begin
+ -- process(clk)	
+ -- begin
 	
-    if (rising_edge(clk)) then
+    --if (rising_edge(clk)) then
 	  Instruction <= instruction_list(to_integer(unsigned(Read_address)));
-    end if;
-  end process;
+    --end if;
+  --end process;
 	
 end behavioral;
 			
