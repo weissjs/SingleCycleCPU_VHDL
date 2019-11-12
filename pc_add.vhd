@@ -11,7 +11,15 @@ architecture behavioral of pc_add is
   constant oneone : std_logic_vector(6 downto 0) := "0000001";
 begin
 	
-  pc_out <= std_logic_vector(unsigned(pc_in) + unsigned(oneone));
+
+  process(pc_in)
+  begin
+    if(pc_in = "1111111") then
+      pc_out <= "1111111";
+    else 
+      pc_out <= std_logic_vector(unsigned(pc_in) + unsigned(oneone));
+    end if;
+  end process;
 		
 	
 end behavioral;

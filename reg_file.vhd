@@ -36,11 +36,11 @@ begin
 	elsif (falling_edge(clk)) then
 		if(RegWr = '1') then
 		  reg(to_integer(unsigned(Rd))) <= busW;
-		else 
-		  reg <= reg;
+		--else 
+		  --reg <= reg;
 		end if;
-	else  
-	  reg <= reg;
+	--else  
+	  --reg <= reg;
 	end if;
   end process;
 	

@@ -71,7 +71,7 @@ begin
 				
 		branch_add : entity work.branch_add(behavioral)
 	  port map (sign_extend => in_2_branch_add,
-				pc_in => pc_incremented_sig,
+				pc_in => PC_sig,
 				pc_out => pc_branched);
 		
 		branch_mux : entity work.mux_7(behavioral)
