@@ -1,9 +1,6 @@
 # 426_Lab4
-Jordan and Daijon wreck this mfuckwer
+Single Cycle CPU notes
  
-Our single cycling CPU will have 16 registers
-with 16 instructions. Instruction latout is as follows
-
 ## Instruction Layout
 ```
 R-Type
